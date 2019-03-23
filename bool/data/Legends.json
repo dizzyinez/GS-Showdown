@@ -1,0 +1,73 @@
+{
+  "legends": [
+    {
+      "idleFrames": [
+        {
+          "hitboxes": [
+            {
+              "x1": 64,
+              "y1": 0,
+              "x2": 64,
+              "y2": 64,
+              "damage": 10,
+              "knockx": 14,
+              "knocky": 50
+            }
+          ],
+          "x1": 0,
+          "y1": 0,
+          "x2": 64,
+          "y2": 64,
+          "time": 10
+        }
+      ],
+      "spriteSheetName": "TIG.png",
+      "idlex1": 0,
+      "idley1": 0,
+      "idlex2": 64,
+      "idley2": 64,
+      "moves": [
+        {
+          "frames": [
+            {
+              "hitboxes": [
+                {
+                  "x1": 64,
+                  "y1": 0,
+                  "x2": 64,
+                  "y2": 64,
+                  "damage": 10,
+                  "knockx": 14,
+                  "knocky": 50
+                }
+              ],
+              "x1": 64,
+              "y1": 0,
+              "x2": 64,
+              "y2": 64,
+              "time": 50
+            },
+			{
+              "hitboxes": [
+                {
+                  "x1": 64,
+                  "y1": 0,
+                  "x2": 64,
+                  "y2": 64,
+                  "damage": 10,
+                  "knockx": 14,
+                  "knocky": 50
+                }
+              ],
+              "x1": 0,
+              "y1": 64,
+              "x2": 64,
+              "y2": 64,
+              "time": 100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ void menu() {
 }
 
 void menuCleanup() {
-  GUI.removeButton("play");
+  GUI.removeButton("playButton");
 }
 
 void playButton() {

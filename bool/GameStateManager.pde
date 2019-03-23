@@ -1,5 +1,5 @@
 class GameStateManager {
-  String[] states = {"title", "menu"};
+  String[] states = {"title", "menu", "game"};
   GameStateManager() {
     gameState = -1;
   };
