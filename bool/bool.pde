@@ -4,7 +4,8 @@ GUIManager GUI = new GUIManager();
 
 void setup() {
   frameRate(60);
-  size(1366, 768);
+  //size(1366, 768);
+  size(1280,1440);
   //fullScreen();
   surface.setResizable(true);
   noSmooth();
