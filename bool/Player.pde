@@ -99,11 +99,11 @@ class Player {
     }
 
     if (pos.y>stage.platformPosition.y - stage.platformSize.y/2-32 && pos.y<stage.platformPosition.y + stage.platformSize.y/2+32) {
-      if (pos.x>=stage.platformPosition.x - stage.platformSize.x/2-32 && pos.x <= stage.platformPosition.x - stage.platformSize.x/2-30) {
+      if (vel.x > 0 && pos.x>=stage.platformPosition.x - stage.platformSize.x/2-32 && pos.x <= stage.platformPosition.x - stage.platformSize.x/2-30) {
         vel.x = 0;
       }
 
-      if (pos.x<=stage.platformPosition.x + stage.platformSize.x/2+32 && pos.x >= stage.platformPosition.x + stage.platformSize.x/2+30) {
+      if (vel.x < 0 && pos.x<=stage.platformPosition.x + stage.platformSize.x/2+32 && pos.x >= stage.platformPosition.x + stage.platformSize.x/2+30) {
         vel.x = 0;
       }
     }
