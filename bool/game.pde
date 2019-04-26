@@ -1,6 +1,6 @@
 ArrayList<Player> players = new ArrayList<Player>(0);
 void gameSetup() {
-  GUI.addButton("moveButton", "Move", 0.9, 0.5, 300, 50);
+  GUI.addButton("moveButton", "Move", 0.8, 0.3, 300, 50);
   players.add(new Player(0));
   //players.add(new Player(0));
   loadLegendImages();

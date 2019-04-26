@@ -12,8 +12,10 @@ void menu() {
 
 void menuCleanup() {
   GUI.removeButton("playButton");
+  GUI.removeButton("settingsButton");
 }
 
 void playButton() {
   //GSM.changeGameState("characterSelect");
+  GSM.changeGameState("game");
 }

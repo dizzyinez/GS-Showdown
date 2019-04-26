@@ -18,4 +18,5 @@ void draw() {
   //background(0);
   GSM.gameStateLoop();
   GUI.updateGUI();
+  Input.cleanupInput();
 }

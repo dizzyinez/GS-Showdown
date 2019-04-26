@@ -79,7 +79,8 @@ class Player {
       direction =0;
     }
 
-    if (jumps > 0 && Input.keyDown(keys[2])) {
+    if (jumps > 0 && Input.keyPressed(keys[2])) {
+      jumps -=1;
       vel.y = -5;
     }
     vel.x=direction * 4;
@@ -93,6 +94,7 @@ class Player {
       if (pos.y>=stage.platformPosition.y - stage.platformSize.y/2-32-vel.y && pos.y <= stage.platformPosition.y - stage.platformSize.y/2-32+vel.y) 
       {
         grounded = true;
+        jumps = 3;
         vel.y = 0;
         pos.y = stage.platformPosition.y - stage.platformSize.y/2-32;
       }
