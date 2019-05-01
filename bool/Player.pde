@@ -52,6 +52,29 @@ class Player {
   boolean rightPressed = false;
   boolean jumpPressed = false;
   int direction = 0;
+  
+  
+  
+  void handleCollision(float x1,float y1,float x2,float y2) {//top left and bottom right corners
+    float px1 = pos.x-32;
+    float px2 = pos.x+32;
+    float py1 = pos.y-32;
+    float py2 = pos.y+32;
+    float pvx1 = pos.x-32+vel.x;
+    float pvx2 = pos.x+32+vel.x;
+    float pvy1 = pos.y-32+vel.y;
+    float pvy2 = pos.y+32+vel.y;
+    if (py2>=y1) //within y values 
+    {
+      if (
+    }
+    //right
+    //left
+    //up
+    //down
+  }
+  
+  
   void updatePosition() {
 
 
