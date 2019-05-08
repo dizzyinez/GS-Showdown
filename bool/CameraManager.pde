@@ -1,6 +1,6 @@
 class CameraManager {
   float smoothing =  0.1;
-
+float zoomSmoothing = 0.1;
   PVector pos = new PVector(stage.platformPosition.x, stage.platformPosition.y - stage.platformSize.y/2);
   float scale;
   CameraManager() {

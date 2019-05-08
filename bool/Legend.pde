@@ -72,7 +72,7 @@ class Legend {
   String spriteSheetName;
   PImage spriteSheet;
   float radiusx;
-  float raduisy;
+  float radiusy;
   Move[] moves = new Move[12];
   Frame[] idleFrames;
   Legend(String spriteSheetName_, Move[] moves_, Frame[] idleFrames_,float radiusx_,float radiusy_) {
@@ -81,7 +81,7 @@ class Legend {
     spriteSheet = loadImage(spriteSheetName);
     idleFrames = idleFrames_;
     radiusx = radiusx_;
-    raduisy = radiusy_;
+    radiusy = radiusy_;
   }
   void load() {
   }
