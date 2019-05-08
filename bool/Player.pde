@@ -1,7 +1,7 @@
 class Player {
   char[] keys = {'a', 'd', 'w', 's', ' '};
   int legend;
-  PVector pos = new PVector(800, 400);//random(900, 900), 500);
+  PVector pos = new PVector(random(400,800), 400);//random(900, 900), 500);
   PVector vel = new PVector(0, 0);
   boolean stunned = false;
   boolean grounded = false;
@@ -9,8 +9,9 @@ class Player {
   int move = -1;
   int frame = 0;
   int frameTimer = 0;
-  Player(int legend_) {
+  Player(int legend_, int keymap) {
     legend = legend_;
+    if (keymap == 1 ) {keys[0] = 'j'; keys[1] = 'l'; keys[2] = 'i';keys[3] = 'k';}
   }
   void move(int move_) {
     if (move == -1) {
@@ -52,10 +53,10 @@ class Player {
   boolean rightPressed = false;
   boolean jumpPressed = false;
   int direction = 0;
-  
-  
-  
-  void handleCollision(float x1,float y1,float x2,float y2) {//top left and bottom right corners
+
+
+
+  void handleCollision(float x1, float y1, float x2, float y2) {//top left and bottom right corners
     float px1 = pos.x-32;
     float px2 = pos.x+32;
     float py1 = pos.y-32;
@@ -64,17 +65,36 @@ class Player {
     float pvx2 = pos.x+32+vel.x;
     float pvy1 = pos.y-32+vel.y;
     float pvy2 = pos.y+32+vel.y;
-    if (py2>=y1) //within y values 
-    {
-      if (
+    if (px2>x1 && px1<x2) {
+      if (py2<=y1 && pvy2>=y1) {
+        pos.y=y1-32;
+        vel.y=0;
+        grounded = true;
+        jumps = 3;
+      }
+      if (py1>=y2 && pvy1<=y2) {
+        pos.y=y2+32;
+        vel.y=0;
+      }
     }
-    //right
-    //left
-    //up
-    //down
+    
+    if (py2>=y1 && py1<=y2) {
+      if (px2<=x1 && pvx2>=x1) {
+        pos.x=x1-32;
+        vel.x=0;
+        vel.y *= 0.9;
+        jumps = 3;
+      }
+      if (px1>=x2 && pvx1<=x2) {
+        pos.x=x2+32;
+        vel.x=0;
+        vel.y *= 0.9;
+        jumps = 3;
+      }
+    }
   }
-  
-  
+
+
   void updatePosition() {
 
 
@@ -101,37 +121,20 @@ class Player {
     if (!Input.keyDown(keys[0]) && !Input.keyDown(keys[1])) {
       direction =0;
     }
-
+    if (Input.keyDown(keys[3])) {
+      vel.y += 0.4;
+    }
     if (jumps > 0 && Input.keyPressed(keys[2])) {
       jumps -=1;
-      vel.y = -5;
+      vel.y = -6;
     }
     vel.x=direction * 4;
 
-    vel.y += 0.1;
+    vel.y += 0.2;
     grounded = false;
-    if (
-      pos.x>=stage.platformPosition.x - stage.platformSize.x/2 - 32 &&
-      pos.x<=stage.platformPosition.x + stage.platformSize.x/2 + 32 //within the stages width
-      ) {
-      if (pos.y>=stage.platformPosition.y - stage.platformSize.y/2-32-vel.y && pos.y <= stage.platformPosition.y - stage.platformSize.y/2-32+vel.y) 
-      {
-        grounded = true;
-        jumps = 3;
-        vel.y = 0;
-        pos.y = stage.platformPosition.y - stage.platformSize.y/2-32;
-      }
-    }
-
-    if (pos.y>stage.platformPosition.y - stage.platformSize.y/2-32 && pos.y<stage.platformPosition.y + stage.platformSize.y/2+32) {
-      if (vel.x > 0 && pos.x>=stage.platformPosition.x - stage.platformSize.x/2-32 && pos.x <= stage.platformPosition.x - stage.platformSize.x/2-30) {
-        vel.x = 0;
-      }
-
-      if (vel.x < 0 && pos.x<=stage.platformPosition.x + stage.platformSize.x/2+32 && pos.x >= stage.platformPosition.x + stage.platformSize.x/2+30) {
-        vel.x = 0;
-      }
-    }
+    handleCollision(stage.platformPosition.x - stage.platformSize.x/2, stage.platformPosition.y - stage.platformSize.y/2, 
+      stage.platformPosition.x + stage.platformSize.x/2, stage.platformPosition.y + stage.platformSize.y/2
+      );
     pos.x += vel.x;
     pos.y += vel.y;
   }

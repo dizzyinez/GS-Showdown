@@ -6,10 +6,12 @@ GUIManager GUI = new GUIManager();
 void setup() {
   frameRate(60);
   //size(1366, 768);
-  size(1280,1440);
+  size(1440, 1280);
   //fullScreen();
   surface.setResizable(true);
   noSmooth();
+  changeAppIcon( loadImage(ICON) );
+  changeAppTitle(TITLE);
   GUI.loadGUI();
   loadLegends();
   GSM.changeGameState("game");

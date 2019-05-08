@@ -8,7 +8,7 @@ class GUIManager {
   }
   
   void loadGUI() {
-    buttonFont = createFont("Sniglet-Regular.ttf",35, true);
+    buttonFont = createFont("SourceSansPro-Regular.ttf",35, true);
   }
   public void addButton(String name_, String text_, float cx_, float cy_, float w_, float h_) {
     buttons.add(new Button(name_, text_, cx_, cy_, w_, h_));

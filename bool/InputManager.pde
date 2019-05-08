@@ -1,5 +1,5 @@
 class InputManager {
-  public char[] keysToTrack = {'w', 'a', 's', 'd'}; 
+  public char[] keysToTrack = {'w', 'a', 's', 'd','i','j','k','l'}; 
   public int[] codedKeysToTrack = {UP, DOWN, LEFT, RIGHT}; 
   public boolean[] keysDown          = new boolean[keysToTrack.length];
   public boolean[] keysCanPress      = new boolean[keysToTrack.length];
@@ -56,6 +56,8 @@ class InputManager {
 
     for (int i = 0; i < keysToTrack.length; i++) {
       keysPressed[i] = false;
+    }
+    for (int i = 0; i < codedKeysToTrack.length; i++) {
       codedKeysPressed[i] = false;
     }
   }

@@ -26,6 +26,8 @@
       "idley1": 0,
       "idlex2": 64,
       "idley2": 64,
+      "radiusx": 32,
+      "radiusy": 32,
       "moves": [
         {
           "frames": [

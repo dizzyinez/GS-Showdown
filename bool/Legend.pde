@@ -42,7 +42,7 @@ void loadLegends() {
       }
       moves[m] = new Move(frames);
     }
-    legends[l] = new Legend(legend.getString("spriteSheetName"), moves, idleFrames);
+    legends[l] = new Legend(legend.getString("spriteSheetName"), moves, idleFrames,legend.getInt("radiusx"),legend.getInt("radiusy"));
   }
 }
 
@@ -71,13 +71,17 @@ String[] getProperty(String data, String tag) {
 class Legend {
   String spriteSheetName;
   PImage spriteSheet;
+  float radiusx;
+  float raduisy;
   Move[] moves = new Move[12];
   Frame[] idleFrames;
-  Legend(String spriteSheetName_, Move[] moves_, Frame[] idleFrames_) {
+  Legend(String spriteSheetName_, Move[] moves_, Frame[] idleFrames_,float radiusx_,float radiusy_) {
     spriteSheetName = spriteSheetName_;
     moves = moves_;
     spriteSheet = loadImage(spriteSheetName);
     idleFrames = idleFrames_;
+    radiusx = radiusx_;
+    raduisy = radiusy_;
   }
   void load() {
   }

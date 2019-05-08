@@ -15,10 +15,11 @@ Stage stage = new Stage("stage",1200,1200,600,300,600,800);
 
 
 void drawStageDebug() {
-  noFill();
   stroke(200);
+  noFill();
   rectMode(CORNER);
   rect(0,0,stage.killbox.x,stage.killbox.y);
+  fill(200);
   rectMode(CENTER);
   rect(stage.platformPosition.x,stage.platformPosition.y,stage.platformSize.x,stage.platformSize.y);
 }
