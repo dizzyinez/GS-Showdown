@@ -1,8 +1,8 @@
 PImage menuImage;
 void menuSetup() {
   menuImage = loadImage("menu.PNG");
-  GUI.addButton("playButton", "PLAY", 0.3, 0.5, 300, 50);
-  GUI.addButton("settingsButton", "SETTINGS", 0.3, 0.6, 300, 50);
+  GUI.addButton("playButton", "Play", 0.3, 0.5, 300, 50);
+  GUI.addButton("settingsButton", "Settings", 0.3, 0.6, 300, 50);
 }
 void menu() {
   imageMode(CENTER);

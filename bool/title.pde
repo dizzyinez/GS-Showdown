@@ -1,7 +1,7 @@
 PImage titleImage;
 void titleSetup() {
   titleImage = loadImage("title.jpg");
-  GUI.addButton("startButton", "START", 0.5, 0.7, 200, 50);
+  GUI.addButton("startButton", "Start", 0.5, 0.7, 200, 50);
 }
 void title() {
   imageMode(CENTER);

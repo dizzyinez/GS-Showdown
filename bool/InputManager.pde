@@ -1,5 +1,6 @@
 class InputManager {
-  public char[] keysToTrack = {'w', 'a', 's', 'd','i','j','k','l'}; 
+  //public char[] keysToTrack = {'w', 'a', 's', 'd','i','j','k','l',' '}; 
+  public char[] keysToTrack = {'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.',' '}; 
   public int[] codedKeysToTrack = {UP, DOWN, LEFT, RIGHT}; 
   public boolean[] keysDown          = new boolean[keysToTrack.length];
   public boolean[] keysCanPress      = new boolean[keysToTrack.length];
@@ -75,7 +76,7 @@ void keyPressed() {
       }
     }
   } else {
-    for (int i = 0; i < Input.keysToTrack.length; i++) {
+    for (int i = 0; i < Input.codedKeysToTrack.length; i++) {
       if (keyCode == Input.codedKeysToTrack[i]) {
         Input.codedKeysDown[i] = true;
         if (Input.codedKeysCanPress[i] == true) {
@@ -95,7 +96,7 @@ void keyReleased() {
       }
     }
   } else {
-    for (int i = 0; i < Input.keysToTrack.length; i++) {
+    for (int i = 0; i < Input.codedKeysToTrack.length; i++) {
       if (keyCode == Input.codedKeysToTrack[i]) {
         Input.codedKeysDown[i] = false;
       }
