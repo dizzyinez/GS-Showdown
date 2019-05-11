@@ -24,6 +24,11 @@ class InputManager {
         return keysDown[i];
       }
     }
+    for (int i = 0; i < codedKeysToTrack.length; i++) {
+      if (int(k) == codedKeysToTrack[i]) {
+        return codedKeysDown[i];
+      }
+    }
     return false;
   }
   boolean keyDown(int k) {
@@ -39,6 +44,11 @@ class InputManager {
     for (int i = 0; i < keysToTrack.length; i++) {
       if (k == keysToTrack[i]) {
         return keysPressed[i];
+      }
+    }
+    for (int i = 0; i < codedKeysToTrack.length; i++) {
+      if (int(k) == codedKeysToTrack[i]) {
+        return codedKeysPressed[i];
       }
     }
     return false;
@@ -98,6 +108,7 @@ void keyReleased() {
   } else {
     for (int i = 0; i < Input.codedKeysToTrack.length; i++) {
       if (keyCode == Input.codedKeysToTrack[i]) {
+        Input.codedKeysCanPress[i] = true;
         Input.codedKeysDown[i] = false;
       }
     }

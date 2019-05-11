@@ -133,19 +133,20 @@ class Hitbox {
 
 PImage flipimage(PImage toflip) {
   PImage output = new PImage(toflip.width, toflip.height);
-  PImage mask = output;
+  PImage mask = new PImage(toflip.width, toflip.height);
   for (int i=0; i < width; i++) {
     for (int j=0; j < toflip.height; j++) {
-      output.set(i, j, toflip.get(toflip.width-i-1, j));
-      mask.set(i, j, int(alpha(toflip.get(toflip.width-i-1, j))));
+      //output.set(i, j, toflip.get(toflip.width-i-1, j));
+      output.set(i, j, toflip.get(toflip.width-i, j));
+      mask.set(i, j, int(alpha(toflip.get(toflip.width-i, j))));
     }
   }
   //PImage mask = output;
-  mask.filter(GRAY);
-  mask.filter(THRESHOLD, 0.1);
+  //mask.filter(GRAY);
+  //mask.filter(THRESHOLD, 0.1);
   //mask.filter(INVERT);
   output.mask(mask);
   //output = mask;
-  output.filter(INVERT);
+  //output.filter(INVERT);
   return output;
 }

@@ -1,6 +1,6 @@
 class Player {
   int id;
-  char[] keys = {'a', 'd', 'w', 's', ' ', 'b'};
+  char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
   int legend;
   PVector pos = new PVector(random(400, 800), 400);//random(900, 900), 500);
   PVector vel = new PVector(0, 0);
@@ -20,15 +20,19 @@ class Player {
     id = id_;
     legend = legend_;
     if (keymap == 1 ) {
-      keys[0] = 'j'; 
-      keys[1] = 'l'; 
-      keys[2] = 'i';
-      keys[3] = 'k';
+      keys[0] = LEFT; 
+      keys[1] = RIGHT; 
+      keys[2] = UP;
+      keys[3] = DOWN;
       keys[4] = '.';
       keys[5] = 'm';
     }
   }
   void move(int move_) {
+    if (move_ == -1) {
+    move = -1;
+    frame = 0;
+    }
     if (move == -1) {
       move = move_;
       frame = 0;
@@ -59,7 +63,9 @@ class Player {
     //scale(0.5,1);
     image(frame, pos.x, pos.y);
     //popMatrix();
-    //drawHitboxDebug();
+    if (debugBoxes) {
+      drawHitboxDebug();
+    }
   }
 
   private PImage getFrame() {
@@ -90,51 +96,69 @@ class Player {
   boolean rightPressed = false;
   boolean jumpPressed = false;
 
+
+
+  void checkMoveInput() {
+    if (grounded && Input.keyPressed(keys[5])) {//light attacks
+      if (Input.keyDown(keys[3])) {//down
+        move(1);
+        return;
+      }
+      if (Input.keyDown(keys[2])) {//up
+        move(3);
+        return;
+      }
+      if (Input.keyDown(keys[0]) || Input.keyDown(keys[1]) ) {//sides
+        move(2);
+        return;
+      }
+      move(0);
+      return;
+    }
+  }
+
   void updatePosition() {
     if (hitStun > 0) {
       hitStun -=1;
     } else {
+      if (move == -1) {
+        if (Input.keyDown(keys[0])) {
+          if (!leftPressed || direction == 0 || !rightPressed) {
 
-      if (Input.keyDown(keys[0])) {
-        if (!leftPressed || direction == 0 || !rightPressed) {
-
-          direction = -1;
-          moveDirection = -1;
+            direction = -1;
+            moveDirection = -1;
+          }
+          leftPressed = true;
+        } else {
+          leftPressed = false;
         }
-        leftPressed = true;
-      } else {
-        leftPressed = false;
-      }
-      if (Input.keyDown(keys[1])) {
-        if (!rightPressed || direction == 0 || !leftPressed) {
-
-          direction = 1;
-          moveDirection = 1;
+        if (Input.keyDown(keys[1])) {
+          if (!rightPressed || direction == 0 || !leftPressed) {
+            
+            direction = 1;
+            moveDirection = 1;
+          }
+          rightPressed = true;
+        } else {
+          rightPressed = false;
         }
-        rightPressed = true;
-      } else {
-        rightPressed = false;
-      }
 
-      if (!Input.keyDown(keys[0]) && !Input.keyDown(keys[1])) {
-        direction =0;
+        if (!Input.keyDown(keys[0]) && !Input.keyDown(keys[1])) {
+          direction =0;
+        }
+        if (Input.keyDown(keys[3])) {
+          vel.y += 0.4;
+        }
+        if (jumps > 0 && Input.keyPressed(keys[4])) {
+          jumps -=1;
+          vel.y = -6;
+        }
+        checkMoveInput();
       }
-      if (Input.keyDown(keys[3])) {
-        vel.y += 0.4;
-      }
-      if (jumps > 0 && Input.keyPressed(keys[2])) {
-        jumps -=1;
-        vel.y = -6;
-      }
-      if (Input.keyPressed(keys[4])) {
-        move(0);
-      }
-      if (Input.keyPressed(keys[5])) {
-        move(1);
-      }
-
       checkHitboxes();
     }
+
+
     if (grounded) {
       vel.x = 0;
       vel.x += direction * 6;
@@ -143,6 +167,11 @@ class Player {
       vel.x *= 0.9;
     }
     vel.y += 0.2;
+    if (move != -1) {
+      vel.x*=0.2;
+    }
+
+
 
     grounded = false;
     handleCollision(stage.platformPosition.x - stage.platformSize.x/2, stage.platformPosition.y - stage.platformSize.y/2, 
@@ -167,7 +196,9 @@ class Player {
               vel.y+=h.knocky;
               vel.x+=p.moveDirection*h.knockx;
               hit.trigger();
-              delay(30);
+              cm.screenShake(1);
+              move(-1);
+              //delay(33);
             }
           }
         }
@@ -180,13 +211,14 @@ class Player {
 
 
   void die() {
+    cm.screenShake(12);
     pos = new PVector(stage.platformPosition.x, stage.platformPosition.y - stage.platformSize.y/2 - 200);
     vel = new PVector(0, 0);
   }
 
   void drawHitboxDebug() {
     noFill();
-    stroke(10, 200, 10);
+    stroke(10, 200, 10, 50);
     if (move !=-1) {
       rectMode(CORNERS);
       for (Hitbox h : legends[legend].moves[move].frames[frame].hitboxes) {
