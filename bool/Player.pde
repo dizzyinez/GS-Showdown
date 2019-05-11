@@ -59,7 +59,7 @@ class Player {
     //scale(0.5,1);
     image(frame, pos.x, pos.y);
     //popMatrix();
-    drawHitboxDebug();
+    //drawHitboxDebug();
   }
 
   private PImage getFrame() {
