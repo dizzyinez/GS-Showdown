@@ -1,2 +1,2 @@
-boolean debugBoxes = true;
+boolean debugBoxes = false;
 boolean debugFrameRate = false;

@@ -2,7 +2,7 @@ class Player {
   int id;
   char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
   int legend;
-  PVector pos = new PVector(random(400, 800), 400);//random(900, 900), 500);
+  PVector pos = new PVector(random(stage.platformPosition.x-stage.platformSize.x/2, stage.platformPosition.x+stage.platformSize.x/2), 400);//random(900, 900), 500);
   PVector vel = new PVector(0, 0);
   boolean stunned = false;
   boolean grounded = false;
@@ -11,6 +11,7 @@ class Player {
   int frame = 0;
   int frameTimer = 0;
   int hitStun = 0;
+  int stun = 0;
   int direction = 0;
   int moveDirection = 1;
   float x_horizontal = 0;
@@ -68,43 +69,48 @@ class Player {
     }
   }
 
-  private PImage getFrame() {
-
-    if (move != -1) {
-
-      if (moveDirection == -1) {
-        return legends[legend].moves[move].frames[frame].frameImageFlipped;
-      } else {
-        return legends[legend].moves[move].frames[frame].frameImage;
-      }
-    }
-    if (stunned) {
-      if (moveDirection == -1) {
-        return legends[legend].idleFrames[frame].frameImageFlipped;
-      } else {
-        return legends[legend].idleFrames[frame].frameImage;
-      }
-    }
-    if (!grounded) {
-      if (moveDirection == -1) {
-        return legends[legend].idleFrames[1].frameImageFlipped;
-      } else {
-        return legends[legend].idleFrames[1].frameImage;
-      }
-    }
-    if (moveDirection == -1) {
-      return legends[legend].idleFrames[0].frameImageFlipped;
+  void updatePosition() {
+    if (hitStun > 0) {
+      hitStun -=1;
     } else {
-      return legends[legend].idleFrames[0].frameImage;
+      if (move == -1) {
+
+        handleHorizontalInput();
+        if (Input.keyDown(keys[3])) {
+          vel.y += 0.4;
+        }
+        if (jumps > 0 && Input.keyPressed(keys[4])) {
+          jumps -=1;
+          vel.y = -6;
+        }
+        checkMoveInput();
+      }
+      checkHitboxes();
+    }
+    
+    if (grounded) {
+      vel.x = 0;
+      vel.x += direction * 4;
+    } else {
+      vel.x += direction * 0.4;
+      vel.x *= 0.9;
+    }
+    vel.y += 0.2;
+    if (move != -1) {
+      vel.x*=0.2;
+    }
+    
+    grounded = false;
+    handleCollision(stage.platformPosition.x - stage.platformSize.x/2, stage.platformPosition.y - stage.platformSize.y/2, 
+      stage.platformPosition.x + stage.platformSize.x/2, stage.platformPosition.y + stage.platformSize.y/2
+      );
+    pos.x += vel.x;
+    pos.y += vel.y;
+    if (!checkCollision(0, 0, stage.killbox.x, stage.killbox.y)) {
+      die();
     }
   }
-
-  boolean leftPressed = false;
-  boolean rightPressed = false;
-  boolean jumpPressed = false;
-
-
-
+  
   void checkMoveInput() {
 
     if (Input.keyPressed(keys[5])) {//light attacks
@@ -142,73 +148,36 @@ class Player {
     }
   }
 
-  void updatePosition() {
-    if (hitStun > 0) {
-      hitStun -=1;
-    } else {
-      if (move == -1) {
-        if (Input.keyDown(keys[0])) {
-          if (!leftPressed || direction == 0 || !rightPressed) {
+  private PImage getFrame() {
 
-            direction = -1;
-            moveDirection = -1;
-          }
-          leftPressed = true;
-        } else {
-          leftPressed = false;
-        }
-        if (Input.keyDown(keys[1])) {
-          if (!rightPressed || direction == 0 || !leftPressed) {
-
-            direction = 1;
-            moveDirection = 1;
-          }
-          rightPressed = true;
-        } else {
-          rightPressed = false;
-        }
-
-        if (!Input.keyDown(keys[0]) && !Input.keyDown(keys[1])) {
-          direction =0;
-        }
-        if (Input.keyDown(keys[3])) {
-          vel.y += 0.4;
-        }
-        if (jumps > 0 && Input.keyPressed(keys[4])) {
-          jumps -=1;
-          vel.y = -6;
-        }
-        checkMoveInput();
-      }
-      checkHitboxes();
-    }
-
-
-    if (grounded) {
-      vel.x = 0;
-      vel.x += direction * 6;
-    } else {
-      vel.x += direction * 0.6;
-      vel.x *= 0.9;
-    }
-    vel.y += 0.2;
     if (move != -1) {
-      vel.x*=0.2;
+
+      if (moveDirection == -1) {
+        return legends[legend].moves[move].frames[frame].frameImageFlipped;
+      } else {
+        return legends[legend].moves[move].frames[frame].frameImage;
+      }
     }
-
-
-
-    grounded = false;
-    handleCollision(stage.platformPosition.x - stage.platformSize.x/2, stage.platformPosition.y - stage.platformSize.y/2, 
-      stage.platformPosition.x + stage.platformSize.x/2, stage.platformPosition.y + stage.platformSize.y/2
-      );
-    pos.x += vel.x;
-    pos.y += vel.y;
-    if (!checkCollision(0, 0, stage.killbox.x, stage.killbox.y)) {
-      die();
+    if (stunned) {
+      if (moveDirection == -1) {
+        return legends[legend].idleFrames[frame].frameImageFlipped;
+      } else {
+        return legends[legend].idleFrames[frame].frameImage;
+      }
+    }
+    if (!grounded) {
+      if (moveDirection == -1) {
+        return legends[legend].idleFrames[1].frameImageFlipped;
+      } else {
+        return legends[legend].idleFrames[1].frameImage;
+      }
+    }
+    if (moveDirection == -1) {
+      return legends[legend].idleFrames[0].frameImageFlipped;
+    } else {
+      return legends[legend].idleFrames[0].frameImage;
     }
   }
-
   void checkHitboxes() {
     for (Player p : players) {
       if (p.id != id) {
@@ -231,7 +200,35 @@ class Player {
     }
   }
 
+  boolean leftPressed = false;
+  boolean rightPressed = false;
+  boolean jumpPressed = false;
 
+  void handleHorizontalInput() {
+
+    if (Input.keyDown(keys[0])) {
+      if (!leftPressed || direction == 0 || !rightPressed) {
+        direction = -1;
+        moveDirection = -1;
+      }
+      leftPressed = true;
+    } else {
+      leftPressed = false;
+    }
+    if (Input.keyDown(keys[1])) {
+      if (!rightPressed || direction == 0 || !leftPressed) {
+
+        direction = 1;
+        moveDirection = 1;
+      }
+      rightPressed = true;
+    } else {
+      rightPressed = false;
+    }
+    if (!Input.keyDown(keys[0]) && !Input.keyDown(keys[1])) {
+      direction =0;
+    }
+  }
 
 
 
@@ -330,21 +327,6 @@ class Player {
           vel.x=0;
           vel.y *= 0.9;
           jumps = 3;
-        }
-      } else {
-        if (pvx1<x2 && pvx1 > x1) {
-          if (pvy2 > y1) {
-            vel.x=0;
-            vel.y=0;
-            pos.x = x2+rx;
-          }
-        }
-        if (pvx1<x2 && pvx1 > x1) {
-          if (pvy2 > y1) {
-            vel.x=0;
-            vel.y=0;
-            pos.x = x2+rx;
-          }
         }
       }
     }

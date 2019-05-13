@@ -14,7 +14,7 @@ AudioPlayer music;
 void gameSetup() {
   hit = minim.loadSample("hit.wav",512);
   music = minim.loadFile("music.mp3");
-  //music.loop();
+  music.loop();
   //GUI.addButton("moveButton", "Move", 0.8, 0.3, 300, 50);
   players.add(new Player(1,0,0));
   players.add(new Player(1,1,1));

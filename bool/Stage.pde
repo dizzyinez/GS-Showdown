@@ -11,7 +11,7 @@ class Stage {
   }
 }
 
-Stage stage = new Stage("stage",1200,1200,600,300,600,800);
+Stage stage = new Stage("stage",1024,1024,450,130,512,512);
 
 
 void drawStageDebug() {
