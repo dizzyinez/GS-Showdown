@@ -41,6 +41,9 @@ void game() {
   }
   popMatrix();
   //image(legends[0].moves[0].frames[0].frameImage, 100,100);
+  if (debugFrameRate) {
+    text(round(frameRate),10,10);
+  }
 }
 void gameCleanup() {
   //GUI.removeButton("moveButton");

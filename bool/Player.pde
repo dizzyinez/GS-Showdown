@@ -30,8 +30,8 @@ class Player {
   }
   void move(int move_) {
     if (move_ == -1) {
-    move = -1;
-    frame = 0;
+      move = -1;
+      frame = 0;
     }
     if (move == -1) {
       move = move_;
@@ -78,17 +78,24 @@ class Player {
         return legends[legend].moves[move].frames[frame].frameImage;
       }
     }
-    if (!stunned) {
+    if (stunned) {
       if (moveDirection == -1) {
         return legends[legend].idleFrames[frame].frameImageFlipped;
       } else {
         return legends[legend].idleFrames[frame].frameImage;
       }
     }
+    if (!grounded) {
+      if (moveDirection == -1) {
+        return legends[legend].idleFrames[1].frameImageFlipped;
+      } else {
+        return legends[legend].idleFrames[1].frameImage;
+      }
+    }
     if (moveDirection == -1) {
-      return legends[legend].idleFrames[frame].frameImageFlipped;
+      return legends[legend].idleFrames[0].frameImageFlipped;
     } else {
-      return legends[legend].idleFrames[frame].frameImage;
+      return legends[legend].idleFrames[0].frameImage;
     }
   }
 
@@ -99,21 +106,39 @@ class Player {
 
 
   void checkMoveInput() {
-    if (grounded && Input.keyPressed(keys[5])) {//light attacks
-      if (Input.keyDown(keys[3])) {//down
-        move(1);
+
+    if (Input.keyPressed(keys[5])) {//light attacks
+      if (grounded) {//grounded
+        if (Input.keyDown(keys[3])) {//down
+          move(1);
+          return;
+        }
+        if (Input.keyDown(keys[2])) {//up
+          move(3);
+          return;
+        }
+        if (Input.keyDown(keys[0]) || Input.keyDown(keys[1]) ) {//sides
+          move(2);
+          return;
+        }
+        move(0);
+        return;
+      } else {
+        if (Input.keyDown(keys[3])) {//down
+          move(5);
+          return;
+        }
+        if (Input.keyDown(keys[2])) {//up
+          move(7);
+          return;
+        }
+        if (Input.keyDown(keys[0]) || Input.keyDown(keys[1]) ) {//sides
+          move(6);
+          return;
+        }
+        move(4);
         return;
       }
-      if (Input.keyDown(keys[2])) {//up
-        move(3);
-        return;
-      }
-      if (Input.keyDown(keys[0]) || Input.keyDown(keys[1]) ) {//sides
-        move(2);
-        return;
-      }
-      move(0);
-      return;
     }
   }
 
@@ -134,7 +159,7 @@ class Player {
         }
         if (Input.keyDown(keys[1])) {
           if (!rightPressed || direction == 0 || !leftPressed) {
-            
+
             direction = 1;
             moveDirection = 1;
           }
@@ -217,8 +242,8 @@ class Player {
   }
 
   void drawHitboxDebug() {
-    noFill();
-    stroke(10, 200, 10, 50);
+    noStroke();
+    fill(200, 20, 10, 80);
     if (move !=-1) {
       rectMode(CORNERS);
       for (Hitbox h : legends[legend].moves[move].frames[frame].hitboxes) {
@@ -226,6 +251,7 @@ class Player {
       }
     }
     rectMode(CENTER);
+    fill(10, 200, 10, 30);
     rect(pos.x, pos.y, legends[legend].radiusx*2, legends[legend].radiusy*2);
   }
 
@@ -290,20 +316,36 @@ class Player {
         pos.y=y2+ry;
         vel.y=0;
       }
-    }
+    } else {
 
-    if (py2>=y1 && py1<=y2) {
-      if (px2<=x1 && pvx2>=x1) {
-        pos.x=x1-rx;
-        vel.x=0;
-        vel.y *= 0.9;
-        jumps = 3;
-      }
-      if (px1>=x2 && pvx1<=x2) {
-        pos.x=x2+rx;
-        vel.x=0;
-        vel.y *= 0.9;
-        jumps = 3;
+      if (py2>=y1 && py1<=y2) {
+        if (px2<=x1 && pvx2>=x1) {
+          pos.x=x1-rx;
+          vel.x=0;
+          vel.y *= 0.9;
+          jumps = 3;
+        }
+        if (px1>=x2 && pvx1<=x2) {
+          pos.x=x2+rx;
+          vel.x=0;
+          vel.y *= 0.9;
+          jumps = 3;
+        }
+      } else {
+        if (pvx1<x2 && pvx1 > x1) {
+          if (pvy2 > y1) {
+            vel.x=0;
+            vel.y=0;
+            pos.x = x2+rx;
+          }
+        }
+        if (pvx1<x2 && pvx1 > x1) {
+          if (pvy2 > y1) {
+            vel.x=0;
+            vel.y=0;
+            pos.x = x2+rx;
+          }
+        }
       }
     }
   }
