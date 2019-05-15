@@ -1,4 +1,5 @@
 class Player {
+  int damage = 0;
   int id;
   char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
   int legend;
@@ -73,21 +74,25 @@ class Player {
     if (hitStun > 0) {
       hitStun -=1;
     } else {
-      if (move == -1) {
+      if (stun > 0) {
+        stun -= 1;
+      } else {
+        if (move == -1) {
 
-        handleHorizontalInput();
-        if (Input.keyDown(keys[3])) {
-          vel.y += 0.4;
+          handleHorizontalInput();
+          if (Input.keyDown(keys[3])) {
+            vel.y += 0.4;
+          }
+          if (jumps > 0 && Input.keyPressed(keys[4])) {
+            jumps -=1;
+            vel.y = -6;
+          }
+          checkMoveInput();
         }
-        if (jumps > 0 && Input.keyPressed(keys[4])) {
-          jumps -=1;
-          vel.y = -6;
-        }
-        checkMoveInput();
       }
       checkHitboxes();
     }
-    
+
     if (grounded) {
       vel.x = 0;
       vel.x += direction * 4;
@@ -96,10 +101,10 @@ class Player {
       vel.x *= 0.9;
     }
     vel.y += 0.2;
-    if (move != -1) {
+    if (move != -1 && grounded) {
       vel.x*=0.2;
     }
-    
+
     grounded = false;
     handleCollision(stage.platformPosition.x - stage.platformSize.x/2, stage.platformPosition.y - stage.platformSize.y/2, 
       stage.platformPosition.x + stage.platformSize.x/2, stage.platformPosition.y + stage.platformSize.y/2
@@ -110,7 +115,7 @@ class Player {
       die();
     }
   }
-  
+
   void checkMoveInput() {
 
     if (Input.keyPressed(keys[5])) {//light attacks
@@ -158,11 +163,11 @@ class Player {
         return legends[legend].moves[move].frames[frame].frameImage;
       }
     }
-    if (stunned) {
+    if (stun > 0 || hitStun > 0) {
       if (moveDirection == -1) {
-        return legends[legend].idleFrames[frame].frameImageFlipped;
+        return legends[legend].idleFrames[frame].hitImageFlipped;
       } else {
-        return legends[legend].idleFrames[frame].frameImage;
+        return legends[legend].idleFrames[frame].hitImage;
       }
     }
     if (!grounded) {
@@ -187,11 +192,14 @@ class Player {
             if (checkCollision(p.pos.x+p.moveDirection*h.x1, p.pos.y+h.y1, p.pos.x+p.moveDirection*h.x2, p.pos.y+h.y2) ) {
               //vel.y-=10;
               hitStun = legends[p.legend].moves[p.move].frames[p.frame].time - p.frameTimer;
-              vel.y+=h.knocky;
-              vel.x+=p.moveDirection*h.knockx;
+              stun = 15;
+              vel.y+=h.knocky * (1 + damage/500);
+              vel.x+=p.moveDirection*h.knockx * (1 + damage/500);
               hit.trigger();
               cm.screenShake(1);
               move(-1);
+              direction =0;
+              damage += h.damage;
               //delay(33);
             }
           }
@@ -233,6 +241,7 @@ class Player {
 
 
   void die() {
+    damage = 0;
     cm.screenShake(12);
     pos = new PVector(stage.platformPosition.x, stage.platformPosition.y - stage.platformSize.y/2 - 200);
     vel = new PVector(0, 0);

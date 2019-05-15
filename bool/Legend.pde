@@ -9,7 +9,7 @@ void loadLegends() {
     JSONObject legend = legendData.getJSONObject(l); 
 
     JSONArray idleFrameData = legend.getJSONArray("idleFrames");
-    Frame[] idleFrames = new Frame[idleFrameData.size()]; 
+    IdleFrame[] idleFrames = new IdleFrame[idleFrameData.size()]; 
     for (int ifd = 0; ifd < idleFrameData.size(); ifd++) {
       JSONObject idleFrame = idleFrameData.getJSONObject(ifd);
 
@@ -19,7 +19,7 @@ void loadLegends() {
         JSONObject hitbox = hitboxData.getJSONObject(h);
         hitboxes[h] = new Hitbox(hitbox.getInt("x1"), hitbox.getInt("y1"), hitbox.getInt("x2"), hitbox.getInt("y2"), hitbox.getInt("damage"), hitbox.getFloat("knockx"), hitbox.getFloat("knocky"));
       }
-      idleFrames[ifd] = new Frame(idleFrame.getInt("x1"), idleFrame.getInt("y1"), idleFrame.getInt("x2"), idleFrame.getInt("y2"), idleFrame.getInt("time"), hitboxes);
+      idleFrames[ifd] = new IdleFrame(idleFrame.getInt("x1"), idleFrame.getInt("y1"), idleFrame.getInt("x2"), idleFrame.getInt("y2"), idleFrame.getInt("time"), hitboxes);
     }
     //println(idleFrames[0].x2);
     JSONArray moveData = legend.getJSONArray("moves");
@@ -74,8 +74,8 @@ class Legend {
   float radiusx;
   float radiusy;
   Move[] moves = new Move[12];
-  Frame[] idleFrames;
-  Legend(String spriteSheetName_, Move[] moves_, Frame[] idleFrames_, float radiusx_, float radiusy_) {
+  IdleFrame[] idleFrames;
+  Legend(String spriteSheetName_, Move[] moves_, IdleFrame[] idleFrames_, float radiusx_, float radiusy_) {
     spriteSheetName = spriteSheetName_;
     moves = moves_;
     spriteSheet = loadImage(spriteSheetName);
@@ -114,6 +114,25 @@ class Frame {
     frameImageFlipped = flipimage(frameImage);
   }
 }
+
+class IdleFrame extends Frame {
+  PImage hitImage;
+  PImage hitImageFlipped;
+  IdleFrame(int x1_, int y1_, int x2_, int y2_, int time_, Hitbox[] hitboxes_) {
+    super( x1_, y1_, x2_, y2_, time_, hitboxes_);
+  }
+  void loadFrameImage(int legend) {
+    frameImage = legends[legend].spriteSheet.get(x1, y1, x2, y2);
+    hitImage = frameImage.get(0,0,frameImage.width,frameImage.height);
+    hitImage.filter(GRAY);
+    frameImageFlipped = flipimage(frameImage);
+    hitImageFlipped = flipimage(hitImage);
+  }
+}
+
+
+
+
 
 class Hitbox {
   int x1, y1, x2, y2, damage; 

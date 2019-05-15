@@ -41,6 +41,9 @@ class GUIManager {
   }
 }
 
+class Bar {
+
+}
 
 class Button {
   color col;
