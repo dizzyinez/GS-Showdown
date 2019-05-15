@@ -1,7 +1,7 @@
 class Player {
   int damage = 0;
   int id;
-  char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
+  char[] keys = {'a', 'd', 'w', 's', ' ', 'h', 'k'};
   int legend;
   PVector pos = new PVector(random(stage.platformPosition.x-stage.platformSize.x/2, stage.platformPosition.x+stage.platformSize.x/2), 400);//random(900, 900), 500);
   PVector vel = new PVector(0, 0);
@@ -26,8 +26,8 @@ class Player {
       keys[1] = RIGHT; 
       keys[2] = UP;
       keys[3] = DOWN;
-      keys[4] = '.';
-      keys[5] = 'm';
+      keys[4] = '=';
+      keys[5] = '-';
     }
   }
   void move(int move_) {
