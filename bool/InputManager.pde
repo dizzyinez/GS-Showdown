@@ -1,6 +1,6 @@
 class InputManager {
   //public char[] keysToTrack = {'w', 'a', 's', 'd','i','j','k','l',' '}; 
-  public char[] keysToTrack = {'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.',' '}; 
+  public char[] keysToTrack = {'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.',' ','-','='}; 
   public int[] codedKeysToTrack = {UP, DOWN, LEFT, RIGHT}; 
   public boolean[] keysDown          = new boolean[keysToTrack.length];
   public boolean[] keysCanPress      = new boolean[keysToTrack.length];

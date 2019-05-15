@@ -77,6 +77,8 @@ class Button {
     } else {
       fill(col);
     }
+    stroke(0);
+    strokeWeight(4);
     rectMode(CENTER);
     rect(width * cx, height * cy, w, h);
     fill(GUI.textColor);
