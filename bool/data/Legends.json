@@ -242,7 +242,7 @@
           "time": 30
         }
       ],
-      "spriteSheetName": "Cletus.png",
+      "spriteSheetName": "Tig_All_Ani_Sprite_Sheet.png",
       "idlex1": 0,
       "idley1": 0,
       "idlex2": 2,
@@ -836,6 +836,29 @@
               "x2": 50,
               "y2": 72,
               "time": 10
+            }
+          ]
+        },
+		{
+		  "name" : "NSpecial",
+          "frames": [
+            {
+              "hitboxes": [
+                {
+                  "x1": -15,
+                  "y1": -30,
+                  "x2": -3,
+                  "y2": -19,
+                  "damage": 10,
+                  "knockx": 0,
+                  "knocky": -1
+                }
+              ],
+              "x1": 0,
+              "y1": 225,
+              "x2": 50,
+              "y2": 72,
+              "time": 5
             }
           ]
         }

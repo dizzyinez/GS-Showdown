@@ -68,7 +68,7 @@ class Player {
     //scale(0.5,1);
     image(frame, pos.x, pos.y);
     //popMatrix();
-    if (debugBoxes) {
+    if (config.getBoolean("HitboxDebug")) {
       drawHitboxDebug();
     }
   }

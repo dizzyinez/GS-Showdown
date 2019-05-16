@@ -17,7 +17,7 @@ void gameSetup() {
   //music.loop();
   //GUI.addButton("moveButton", "Move", 0.8, 0.3, 300, 50);
   players.add(new Player(1, 0, 0,color(255,255,255)));
-  players.add(new Player(1, 1, 1,color(245,177,220)));
+  players.add(new Player(1, 1, 1,color(255,255,255)));
   //players.add(new Player(0));
   loadLegendImages();
 }
@@ -33,7 +33,7 @@ void game() {
   translate(-cm.pos.x, -cm.pos.y);
   float shake = cm.screenShakeMultiplier*cm.screenShake;
   translate(random(-shake, shake), random(-shake, shake));
-  background(100);
+  background(150);
   drawStageDebug();
   for (Player p : players) {
     p.update();
@@ -41,7 +41,7 @@ void game() {
   }
   popMatrix();
   //image(legends[0].moves[0].frames[0].frameImage, 100,100);
-  if (debugFrameRate) {
+  if (config.getBoolean("ShowFrameRate")) {
     text(round(frameRate), 10, 10);
   }
 }

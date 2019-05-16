@@ -32,8 +32,9 @@ void setup() {
   changeAppIcon( loadImage(ICON) );
   changeAppTitle(TITLE);
   GUI.loadGUI();
+  loadConfig();
   loadLegends();
-  GSM.changeGameState("game");
+  GSM.changeGameState("title");
 }
 
 void draw() {
