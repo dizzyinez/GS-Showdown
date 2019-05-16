@@ -1,7 +1,7 @@
 class Player {
   int damage = 0;
   int id;
-  char[] keys = {'a', 'd', 'w', 's', ' ', 'h', 'k'};
+  char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
   int legend;
   PVector pos = new PVector(random(stage.platformPosition.x-stage.platformSize.x/2, stage.platformPosition.x+stage.platformSize.x/2), 400);//random(900, 900), 500);
   PVector vel = new PVector(0, 0);
@@ -301,8 +301,8 @@ class Player {
     return false;
   }
   void handleCollision(float x1, float y1, float x2, float y2) {//top left and bottom right corners
-    float rx = legends[legend].radiusx;
-    float ry = legends[legend].radiusy;
+    float rx = legends[legend].radiusx+1;
+    float ry = legends[legend].radiusy+1;
     float px1 = pos.x-rx;
     float px2 = pos.x+rx;
     float py1 = pos.y-ry;

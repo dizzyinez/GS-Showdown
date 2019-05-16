@@ -1,6 +1,6 @@
 class GUIManager {
   color textColor = color(0);
-  color buttonColor = color(50,150,150);
+  color buttonColor = color(254,109,52);
   PFont buttonFont;
   private ArrayList<Button> buttons = new ArrayList<Button>();
   

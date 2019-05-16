@@ -14,9 +14,9 @@ void title() {
   hue +=0.1;
   hue = hue%100;
   colorMode(HSB, 100);
-  background(color(hue,10,90));
+  background(color(hue, 10, 90));
   colorMode(RGB, 255);
-
+text(version,width/2,height*4/5);
 
 
 
