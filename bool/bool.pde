@@ -33,7 +33,7 @@ void setup() {
   changeAppTitle(TITLE);
   GUI.loadGUI();
   loadLegends();
-  GSM.changeGameState("title");
+  GSM.changeGameState("game");
 }
 
 void draw() {

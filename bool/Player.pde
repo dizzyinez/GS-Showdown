@@ -1,4 +1,5 @@
 class Player {
+  color tint = 0;
   int damage = 0;
   int id;
   char[] keys = {'a', 'd', 'w', 's', ' ', 'j', 'k'};
@@ -18,9 +19,10 @@ class Player {
   float x_horizontal = 0;
   float x_vel = 0;
   ArrayList<Hitbox> hitboxes = new ArrayList<Hitbox>(0);
-  Player(int legend_, int keymap, int id_) {
+  Player(int legend_, int keymap, int id_, color tint_) {
     id = id_;
     legend = legend_;
+    tint = tint_;
     if (keymap == 1 ) {
       keys[0] = LEFT; 
       keys[1] = RIGHT; 
@@ -58,6 +60,7 @@ class Player {
     }
   }
   void render() {
+    tint(tint);
     PImage frame = getFrame();
     //frame.resize(moveDirection,64);
     imageMode(CENTER);

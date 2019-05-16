@@ -651,7 +651,7 @@
                   "x2": 2,
                   "y2": -18,
                   "damage": 10,
-                  "knockx": 0,
+                  "knockx": 3,
                   "knocky": 0
                 }
               ],
@@ -669,7 +669,7 @@
                   "x2": 4,
                   "y2": -17,
                   "damage": 10,
-                  "knockx": 0,
+                  "knockx": 5,
                   "knocky": -1
                 }
               ],
@@ -687,7 +687,7 @@
                   "x2": 17,
                   "y2": -15,
                   "damage": 10,
-                  "knockx": 1,
+                  "knockx": 3,
                   "knocky": -1
                 }
               ],

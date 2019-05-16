@@ -16,8 +16,8 @@ void gameSetup() {
   music = minim.loadFile("music.mp3");
   //music.loop();
   //GUI.addButton("moveButton", "Move", 0.8, 0.3, 300, 50);
-  players.add(new Player(1, 0, 0));
-  players.add(new Player(1, 1, 1));
+  players.add(new Player(1, 0, 0,color(255,255,255)));
+  players.add(new Player(1, 1, 1,color(245,177,220)));
   //players.add(new Player(0));
   loadLegendImages();
 }
