@@ -1,6 +1,7 @@
 class InputManager {
   //public char[] keysToTrack = {'w', 'a', 's', 'd','i','j','k','l',' '}; 
-  public char[] keysToTrack = {'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.',' ','-','='}; 
+  public char[] keysToTrack = {'q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l',';','z','x','c','v','b','n','m',',','.',' ','-','=',
+'0','1','2','3','4','5','6','7','8','9','+','.'}; 
   public int[] codedKeysToTrack = {UP, DOWN, LEFT, RIGHT}; 
   public boolean[] keysDown          = new boolean[keysToTrack.length];
   public boolean[] keysCanPress      = new boolean[keysToTrack.length];
@@ -75,6 +76,7 @@ class InputManager {
 }
 
 void keyPressed() {
+  println("pressed: " + key);
   if (key != CODED) {
     for (int i = 0; i < Input.keysToTrack.length; i++) {
       if (key == Input.keysToTrack[i]) {

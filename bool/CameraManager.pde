@@ -6,6 +6,7 @@ class CameraManager {
   PVector pos = new PVector(stage.platformPosition.x, stage.platformPosition.y - stage.platformSize.y/2);
   float scale = 1;
   CameraManager() {
+    zoomSmoothing = constants.getFloat("camSmoothing");
   }
   void CameraUpdate() {
     screenShake *=0.9;

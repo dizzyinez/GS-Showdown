@@ -1,6 +1,6 @@
 class GUIManager {
-  color textColor = color(0);
-  color buttonColor = color(254,109,52);
+  color textColor = color(34,32,52);
+  color buttonColor = color(123,126,135);
   PFont buttonFont;
   private ArrayList<Button> buttons = new ArrayList<Button>();
   
@@ -38,6 +38,44 @@ class GUIManager {
 
   void updateGUI() {
     drawButtons();
+  }
+}
+
+class Textbox{
+  color col;
+  String name;
+  float cx, cy, w, h;
+  String text;
+  boolean hovering() {
+    return (
+      mouseX >= width * cx - w/2  &&
+      mouseX <= width * cx + w/2  &&
+      mouseY >= height * cy - h/2 &&
+      mouseY < height * cy + h/2
+      );
+  }
+  Textbox(String name_, String text_, float cx_, float cy_, float w_, float h_) {
+    cx = cx_;
+    cy = cy_;
+    w = w_;
+    h = h_;
+    name = name_;
+    text = text_;
+    col = GUI.buttonColor;
+  }
+  void update() {
+  } 
+  void render() {
+    fill(col);
+    stroke(0);
+    strokeWeight(4);
+    rectMode(CENTER);
+    rect(width * cx, height * cy, w, h);
+    fill(GUI.textColor);
+    textAlign(LEFT,TOP);
+    textSize(h * 0.9);
+    textFont(GUI.buttonFont);
+    text(text, width * cx, height * cy + h/2);
   }
 }
 

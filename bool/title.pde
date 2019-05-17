@@ -16,7 +16,7 @@ void title() {
   colorMode(HSB, 100);
   background(color(hue, 10, 90));
   colorMode(RGB, 255);
-text(version,width/2,height*4/5);
+text(constants.getString("Release Stage") + " " + constants.getInt("Major") + "." + constants.getInt("Minor") + "." + constants.getInt("Patch"),width/2,height*4/5);
 
 
 

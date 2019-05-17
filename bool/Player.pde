@@ -24,12 +24,12 @@ class Player {
     legend = legend_;
     tint = tint_;
     if (keymap == 1 ) {
-      keys[0] = LEFT; 
-      keys[1] = RIGHT; 
-      keys[2] = UP;
-      keys[3] = DOWN;
-      keys[4] = '=';
-      keys[5] = '-';
+      keys[0] = '4'; 
+      keys[1] = '6'; 
+      keys[2] = '8';
+      keys[3] = '5';
+      keys[4] = '.';
+      keys[5] = '+';
     }
   }
   void move(int move_) {

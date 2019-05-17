@@ -22,6 +22,7 @@ GUIManager GUI = new GUIManager();
 
 
 void setup() {
+  loadConfig();
   minim = new Minim(this);
   frameRate(60);
   //size(1366, 768);
@@ -32,7 +33,6 @@ void setup() {
   changeAppIcon( loadImage(ICON) );
   changeAppTitle(TITLE);
   GUI.loadGUI();
-  loadConfig();
   loadLegends();
   GSM.changeGameState("title");
 }

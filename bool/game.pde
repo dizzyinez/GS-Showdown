@@ -1,5 +1,5 @@
 ArrayList<Player> players = new ArrayList<Player>(0);
-CameraManager cm = new CameraManager();
+CameraManager cm;
 
 
 
@@ -12,6 +12,7 @@ Minim minim;
 AudioSample hit;
 AudioPlayer music;
 void gameSetup() {
+  cm = new CameraManager();
   hit = minim.loadSample("hit.wav", 512);
   music = minim.loadFile("music.mp3");
   //music.loop();
@@ -31,7 +32,7 @@ void game() {
   scale(cm.scale);
   //translate(-cm.pos.x+width/2,-cm.pos.y+height/2);
   translate(-cm.pos.x, -cm.pos.y);
-  float shake = cm.screenShakeMultiplier*cm.screenShake;
+  float shake = cm.screenShakeMultiplier*cm.screenShake*config.getFloat("ScreenShakeMultiplier");
   translate(random(-shake, shake), random(-shake, shake));
   background(150);
   drawStageDebug();
