@@ -35,16 +35,16 @@ void game() {
   float shake = cm.screenShakeMultiplier*cm.screenShake*config.getFloat("ScreenShakeMultiplier");
   translate(random(-shake, shake), random(-shake, shake));
   background(150);
-  drawStageDebug();
+  drawStage();
+  if (config.getBoolean("StageDebug")) {
+  drawStageDebug(); 
+  }
   for (Player p : players) {
     p.update();
     p.render();
   }
   popMatrix();
   //image(legends[0].moves[0].frames[0].frameImage, 100,100);
-  if (config.getBoolean("ShowFrameRate")) {
-    text(round(frameRate), 10, 10);
-  }
 }
 void gameCleanup() {
   //GUI.removeButton("moveButton");

@@ -98,9 +98,9 @@ class Player {
 
     if (grounded) {
       vel.x = 0;
-      vel.x += direction * 4;
+      vel.x += direction * 4.2;
     } else {
-      vel.x += direction * 0.4;
+      vel.x += direction * 0.42;
       vel.x *= 0.9;
     }
     vel.y += 0.2;

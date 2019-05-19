@@ -26,7 +26,7 @@ void setup() {
   minim = new Minim(this);
   frameRate(60);
   //size(1366, 768);
-  size(1440, 1280);
+  size(1920, 1080);
   //fullScreen();
   surface.setResizable(true);
   noSmooth();
@@ -34,6 +34,7 @@ void setup() {
   changeAppTitle(TITLE);
   GUI.loadGUI();
   loadLegends();
+  loadStages();
   GSM.changeGameState("title");
 }
 

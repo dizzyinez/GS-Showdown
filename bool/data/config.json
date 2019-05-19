@@ -1,5 +1,6 @@
 {
 "ScreenShakeMultiplier" : 1,
 "HitboxDebug" : false,
+"StageDebug" : false,
 "ShowFrameRate" : true,
 }
