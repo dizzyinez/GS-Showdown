@@ -1,0 +1,8 @@
+{
+"Release Stage" : "Alpha",
+"Major" : 1,
+"Minor" : 0,
+"Patch" : 3,
+"news" : "First stage has been added. It really chugs fps on higher resolutions so I think I might add an option to disable features to speed up the game. Special moves coming in the near future.",
+"camSmoothing" : 0.1
+}
