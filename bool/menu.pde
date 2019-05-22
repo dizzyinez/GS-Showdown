@@ -1,10 +1,8 @@
 PImage menuImage;
 void menuSetup() {
-  //menuImage = loadImage("menu.jpg");
-  //menuImage.filter(BLUR, 15);
   GUI.addTextbox("newsTextbox", "News", constants.getString("news"), -215, 100, 400, 500,0.5);
   GUI.addButton("playButton", "Play", 285, -125, 300, 50);
-  GUI.addButton("settingsButton", "Settings", 285, -50, 300, 50);
+  //GUI.addButton("settingsButton", "Settings", 285, -50, 300, 50);
 }
 void menu() {
   hue +=0.1;
@@ -26,7 +24,7 @@ void menu() {
 void menuCleanup() {
   GUI.removeButton("playButton");
   GUI.removeTextbox("newsTextbox");
-  GUI.removeButton("settingsButton");
+  //GUI.removeButton("settingsButton");
 }
 
 void playButton() {
