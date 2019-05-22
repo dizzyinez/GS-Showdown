@@ -1051,7 +1051,6 @@ public void drawStageDebug() {
   rectMode(CENTER);
   rect(stage.platformPosition.x, stage.platformPosition.y, stage.platformSize.x, stage.platformSize.y);
 }
-
 final static String ICON  = "icon.png";
 final static String TITLE = "GS Showdown";
 
@@ -1125,11 +1124,9 @@ public void moveButton() {
 }
 PImage menuImage;
 public void menuSetup() {
-  //menuImage = loadImage("menu.jpg");
-  //menuImage.filter(BLUR, 15);
   GUI.addTextbox("newsTextbox", "News", constants.getString("news"), -215, 100, 400, 500,0.5f);
   GUI.addButton("playButton", "Play", 285, -125, 300, 50);
-  GUI.addButton("settingsButton", "Settings", 285, -50, 300, 50);
+  //GUI.addButton("settingsButton", "Settings", 285, -50, 300, 50);
 }
 public void menu() {
   hue +=0.1f;
@@ -1151,7 +1148,7 @@ public void menu() {
 public void menuCleanup() {
   GUI.removeButton("playButton");
   GUI.removeTextbox("newsTextbox");
-  GUI.removeButton("settingsButton");
+  //GUI.removeButton("settingsButton");
 }
 
 public void playButton() {
